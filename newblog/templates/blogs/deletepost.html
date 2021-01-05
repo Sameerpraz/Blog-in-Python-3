@@ -1,0 +1,17 @@
+{%extends "blogs/layout.html"%}
+{% block title %}Delete {{object.title}} {% endblock %}
+
+
+
+{%block body%}
+    <h1>{{object.title}}</h1>
+    <a href="{%url 'home'%}">Go back to Home</a>    
+    
+    <form method="post">{% csrf_token %}
+        <!-- form as paragraph, form as table, form as list -->
+
+        <strong>Are You sure?</strong><br>
+        <button class="btn btn-outline-danger">Delete</button>
+    </form>
+  
+{%endblock%}

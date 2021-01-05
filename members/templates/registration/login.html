@@ -1,0 +1,13 @@
+{%extends "blogs/layout.html"%}
+
+{%block body%}
+<div class="form-post">
+    <form action="" method="POST">
+        {% csrf_token %}
+       {{form.as_p}}
+       <button class="btn btn-secondary">login</button>
+    </form>
+</div>
+
+
+{%endblock%}

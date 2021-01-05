@@ -1,0 +1,20 @@
+{%extends "blogs/layout.html"%}
+{%block title%}create{%endblock%}
+{%block body%}
+
+<div class="container">
+    <button type="button" class="btn btn-dark"><a href="{%url 'home' %}">Back to Home</a></button>
+    <div class="form-group">
+        <h1>Add Post</h1>
+        <form method="POST">
+            {%csrf_token%}
+            <div class="mb-3">
+                {{form.as_p}}
+            <button type="submit" class="btn btn-secondary" value="Save">Post</button>
+              </div>
+            
+        </form>
+    </div>
+  </div>
+
+{%endblock%}
