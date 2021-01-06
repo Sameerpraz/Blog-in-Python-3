@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post
+from .models import Post, Category, Category
 from .forms import FormPost, FormEdit
 from django.urls import reverse_lazy
 
@@ -14,10 +14,36 @@ class HomeView(ListView):
     # to show newest post first 
     ordering=['-post_date']
 
+    def get_context_data(self,*args,**kwargs):
+        cat_menus = Category.objects.all()
+        context = super( HomeView, self).get_context_data(*args, **kwargs)
+        context["cat_menus"] = cat_menus
+        return context
+
+
+def CategoryView(request,pk):
+    category_blogs = Post.objects.filter(blog_category=pk)
+    category_name=Category.objects.filter(pk=pk)
+
+    return render(request, 'blogs/category.html',{
+        'cats': category_name,
+        'category_blogs': category_blogs
+        })
+
+
+
+
+
 
 class ArticleDetailView(DetailView):
     model = Post
     template_name = 'blogs/article_view.html'
+
+    def get_context_data(self,*args,**kwargs):
+        cat_menus = Category.objects.all()
+        context = super( ArticleDetailView, self).get_context_data(*args, **kwargs)
+        context["cat_menus"] = cat_menus
+        return context
     
 
 
@@ -28,6 +54,12 @@ class AddPostView(CreateView):
     # if we want to use only selected fields then =>          fields=('title','body')
     form_class = FormPost
 
+    def get_context_data(self,*args,**kwargs):
+        cat_menus = Category.objects.all()
+        context = super( AddPostView, self).get_context_data(*args, **kwargs)
+        context["cat_menus"] = cat_menus
+        return context
+
 
 
 class PostUpdate(UpdateView):
@@ -36,6 +68,12 @@ class PostUpdate(UpdateView):
     # can also be done this way=>    fields = ['title','title_tag','body']
     template_name = 'blogs/updatepost.html'
 
+    def get_context_data(self,*args,**kwargs):
+        cat_menus = Category.objects.all()
+        context = super(PostUpdate , self).get_context_data(*args, **kwargs)
+        context["cat_menus"] = cat_menus
+        return context
+
 
 
 class DeletePost(DeleteView):
@@ -43,3 +81,9 @@ class DeletePost(DeleteView):
     template_name = 'blogs/deletepost.html'
     # send 
     success_url = reverse_lazy('home')
+
+    def get_context_data(self,*args,**kwargs):
+        cat_menus = Category.objects.all()
+        context = super(DeletePost , self).get_context_data(*args, **kwargs)
+        context["cat_menus"] = cat_menus
+        return context

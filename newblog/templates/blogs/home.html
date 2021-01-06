@@ -1,16 +1,24 @@
 {%extends "blogs/layout.html"%}
-{% block title %}Home {% endblock %}
+{% block title %} Home {% endblock %}
 
 {%block body%}
     <h1>This is the Blog</h1>
-    {{x.post_date}}</small>{%if user.is_authenticated %} <a href="{%url 'addpost'%}">Add Post</a>{%endif%}
+    {{x.post_date}}</small>
+    
+    {%if user.is_authenticated %} <a href="{%url 'addpost'%}">Add Post</a>{%endif%}
     
     
     <ol>
         {% for x in object_list %}
-        <li> <a href="{%url 'view_article' x.id   %}">{{x.title}}</a>- {{x.author}}<small>{{x.post_date}}</small>{%if user.is_authenticated%} <a href="{%url 'update' x.id%}">edit</a>{%endif%}<br>
+        <li> <a href="{%url 'view_article' x.id   %}">{{x.title}}</a>- {{x.author}} <a href="{% url 'category' x.pk|slugify %}">{{x.blog_category}}</a> 
+             <!-- <a href="{% url 'category' x.pk %}"></a> -->
+              <small>{{x.post_date}}</small>
+              {%if user.is_authenticated%} 
+              <a href="{%url 'update' x.id%}">edit</a>
+              {%endif%}<br>
         {{x.body}}</li>
         {%endfor%}
     </ol>
-  
+
+    
 {%endblock%}
