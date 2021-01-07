@@ -8,7 +8,7 @@ class Category(models.Model):
     name = models.CharField(max_length=25)
 
     def __str__(self):
-        return f"{self.id}: {self.name}"
+        return f"{self.name}"
 
     def get_absolute_url(self):
         # return reverse('path',args) 

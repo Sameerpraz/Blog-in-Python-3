@@ -22,7 +22,7 @@ class HomeView(ListView):
 
 
 def CategoryView(request,pk):
-    category_blogs = Post.objects.filter(blog_category=pk)
+    category_blogs = Post.objects.filter(blog_category_id=pk)
     category_name=Category.objects.filter(pk=pk)
 
     return render(request, 'blogs/category.html',{
