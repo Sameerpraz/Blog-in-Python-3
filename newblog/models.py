@@ -23,9 +23,10 @@ class Post(models.Model):
     blog_category=models.ForeignKey(Category,on_delete=models.CASCADE)
     post_date=models.DateField(auto_now_add=True)
     body=models.TextField()
+    header_image = models.ImageField(null=True,blank=True,upload_to='images/')
 
     def __str__(self):
-        return f"{self.id}: {self.title} by {self.author} {self.body}"
+        return f"{self.id}: {self.title} by {self.author.id} {self.body}"
         # return {{self.id}} self.title +'by'+ str(self.author)
 
     def get_absolute_url(self):

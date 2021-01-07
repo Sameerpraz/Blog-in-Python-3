@@ -4,6 +4,8 @@
 
 
 {%block body%}
+{%if user.is_authenticated %}
+{%if user.id == object.author.id %}
     <h1>{{object.title}}</h1>
     <a href="{%url 'home'%}">Go back to Home</a>    
     
@@ -13,5 +15,8 @@
         <strong>Are You sure?</strong><br>
         <button class="btn btn-outline-danger">Delete</button>
     </form>
-  
-{%endblock%}
+  {%else%}
+  <h1>Sorry, you cannot access this page.</h1>
+{%endif%}
+{%endif%}
+  {%endblock%}

@@ -14,7 +14,9 @@
              <!-- <a href="{% url 'category' x.pk %}"></a> -->
               <small>{{x.post_date}}</small>
               {%if user.is_authenticated%} 
+              {%if user.id == x.author.id %}
               <a href="{%url 'update' x.id%}">edit</a>
+              {%endif%}
               {%endif%}<br>
         {{x.body}}</li>
         {%endfor%}

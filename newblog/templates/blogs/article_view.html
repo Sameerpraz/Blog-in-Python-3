@@ -1,13 +1,21 @@
 {% extends "blogs/layout.html" %}
 {% block title %}{{object.title}} {% endblock %}
+
 {% block body %}
-<h1>{{object.title}} by {{object.author}}
+{{user.id}}
+<h1>{{object.title}} by {{object.author}} ({{object.author.id}})
+    
     {%if user.is_authenticated %}
-    <button class="btn btn-sm"><a href="{%url 'update' object.pk %}"> update</a></button>
-    <button class="btn btn-sm btn-danger"><a href="{%url 'delete' object.pk %}">delete</a></button>
+        {%if user.id == object.author.id %}
+        <button class="btn btn-sm"><a href="{%url 'update' object.pk %}"> update</a></button>
+        <button class="btn btn-sm btn-danger"><a href="{%url 'delete' object.pk %}">delete</a></button>
+        {%endif%}
     {%endif%}
 </h1>
 <!-- object nai hunxa -->
+{%if object.header_image%}
+<p><img style="width: 60%; height: 40%;" src="{{object.header_image.url}}"></p>
+{%endif%}
 <p>{{object.body}}</p>
 <small>{{object.post_date}}</small>
 

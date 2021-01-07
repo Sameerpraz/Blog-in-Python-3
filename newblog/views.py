@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post, Category, Category
+from .models import Post, Category, Category, User
 from .forms import FormPost, FormEdit
 from django.urls import reverse_lazy
 

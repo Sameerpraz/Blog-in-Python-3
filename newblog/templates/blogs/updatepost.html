@@ -2,13 +2,20 @@
 {% block title %}Update {{object.title}} {% endblock %}
 
 {%block body%}
-    <h1>This is the Blog</h1>
+{%if user.is_authenticated%}
+{%if user.id == object.author.id%}    <h1>This is the Blog</h1>
     <a href="{%url 'home'%}">Home</a>
     
-    <form method="post">{% csrf_token %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
         <!-- form as paragraph, form as table, form as list -->
+        {{form.media}}
         {{ form.as_p }}
         <input type="submit" value="Update">
     </form>
-  
+
+ {%else%}
+ <h1>You cannot access this page.</h1>   
+  {%endif%}
+  {%endif%}
 {%endblock%}
